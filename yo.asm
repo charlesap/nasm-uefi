@@ -30,7 +30,7 @@ OHEADER:
 	dd 4096			; file alignment
 	dq 0			; os maj, min, image maj, min
 	dq 0			; subsys maj, min, reserved
-	dd 28672		; image size
+	dd 0x5000		; image size
 	dd 4096			; headers size
 	dd 0			; checksum
 	dd 0x0040000A		; dll characteristics & subsystem
@@ -73,9 +73,9 @@ SECTS:
 
 .3:
 	dq  `.reloc`
-	dd  8192	
+	dd  0	
 	dd  20480
-	dd  8192
+	dd  0
 	dd  20480
 	dq  0
 	dd  0
@@ -208,7 +208,7 @@ Interface   dq 0
 FB	    dq 0
 FBS	    dq 0
 MMSize      dq 4096
-MMPtr	    dq 0x8005000
+MMPtr	    dq 0x8004000
 MMKey       dq 0
 MMDsz       dq 48
 MMDsv       dq 0
@@ -229,5 +229,5 @@ datasize equ $ - $$
 
 
 section .reloc follows=.data ;align=64
-xMMap:	times 8192 db 0
+
 
