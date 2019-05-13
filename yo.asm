@@ -1,5 +1,5 @@
 bits 64
-org 0x8000000
+org  0x200000
 section .header
 
 DOS:
@@ -19,17 +19,17 @@ PECOFF:
 
 OHEADER:
     dd 0x0000020b       ; oheader + 0000 linker sig
-    dd 8192 ;codesize       ; code size
+    dd 4096 ;codesize       ; code size
     dd 8192 ;datasize       ; data size
     dd 0            ; uninitialized data size
     dd 4096         ; * entry
     dd 4096         ; * code base
-    dq 0x8000000        ; * image base
+    dq 0x200000        ; * image base
     dd 4096         ; section alignment
     dd 4096         ; file alignment
     dq 0            ; os maj, min, image maj, min
     dq 0            ; subsys maj, min, reserved
-    dd 0x5000       ; image size
+    dd 0x4000       ; image size
     dd 4096         ; headers size
     dd 0            ; checksum
     dd 0x0040000A       ; dll characteristics & subsystem
@@ -42,7 +42,7 @@ OHEADER:
 
 DIRS:
     times 5 dq 0        ; unused
-    dd 0x8005000        ; virtual address .reloc
+    dd 0x004000        ; virtual address .reloc
     dd 0            ; size .reloc
         times 10 dq 0       ; unused 
 OEND:
@@ -51,9 +51,9 @@ osize equ OEND - OHEADER
 SECTS:
 .1:
     dq  `.text`     ; name
-    dd  8192 ;codesize      ; virtual size
+    dd  4096 ;codesize      ; virtual size
     dd  4096        ; virtual address   
-    dd  8192        ; raw data size
+    dd  4096        ; raw data size
     dd  4096        ; * raw data
     dq  0           ; * relocations, * line numbers
     dd  0           ; # relocations, # line numbers
@@ -62,9 +62,9 @@ SECTS:
 .2:
         dq  `.data`
         dd  8192 ;datasize      
-        dd  12288
+        dd  8192
         dd  8192 
-        dd  12288       
+        dd  8192       
         dq  0
         dd  0
         dd  0xC0000040      
@@ -73,9 +73,9 @@ SECTS:
 .3:
     dq  `.reloc`
     dd  0   
-    dd  20480
+    dd  0 ;20480
     dd  0
-    dd  20480
+    dd  0 ;20480
     dq  0
     dd  0
     dd  0x02000040
@@ -230,6 +230,9 @@ EFI_RUNTIME_SERVICES_RESETSYSTEM            equ 104
  ;cmp rax, EFI_SUCCESS
  ;je g5
  ;jmp oops
+
+Z:
+ jmp Z
 
  mov rcx, [FB]
  mov rax, [FBS]
