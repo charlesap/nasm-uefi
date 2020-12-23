@@ -286,18 +286,18 @@ codesize equ $ - $$
 
 section .data follows=.text
 
+dmagic		dq 0x1122334455667788
 Handle          dq 0
 SystemTable     dq 0
 Interface       dq 0
-BS      dq 0
-RTS     dq 0
-STK         dq 0
+BS              dq 0
+RTS             dq 0
+STK             dq 0
 FB              dq 0
 FBS             dq 0
 HR		dq 0
 VR		dq 0
 PPS		dq 0
-entry		dq 0x805000
 memmapsize      dq 4096
 memmapkey       dq 0
 memmapdescsize  dq 48
