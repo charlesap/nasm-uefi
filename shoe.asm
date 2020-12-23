@@ -229,11 +229,10 @@ mov rcx, [FB]
 mov rax, [FBS]
 Q:
 dec rax
-mov byte[rcx+rax],255
+mov byte[rcx+rax],0x55
 jnz Q
 
-W:
-jmp W
+jmp payload
 
 g5:
 mov rcx, 2 ;EfiResetShutdown
@@ -295,6 +294,10 @@ RTS     dq 0
 STK         dq 0
 FB              dq 0
 FBS             dq 0
+HR		dq 0
+VR		dq 0
+PPS		dq 0
+entry		dq 0x805000
 memmapsize      dq 4096
 memmapkey       dq 0
 memmapdescsize  dq 48
@@ -315,7 +318,18 @@ _Nl      dw 13,10,0
 memmap:
     times 4096 db 0
 payload:     ;64 4k pages=262144 (256k)
-    times 262144 db 0
+
+mov rcx, [FB]
+mov rax, [FBS]
+Qz:
+dec rax
+mov byte[rcx+rax],0xBB
+jnz Qz
+
+jmp $
+magic          dq 0x9988776655443322
+
+    times 262144 - 8 - 27  db 0
 datasize equ $ - $$
 
 
