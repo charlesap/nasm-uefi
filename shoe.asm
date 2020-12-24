@@ -286,15 +286,15 @@ codesize equ $ - $$
 
 section .data follows=.text
 
-dmagic		dq 0x1122334455667788
-Handle          dq 0
-SystemTable     dq 0
-Interface       dq 0
-BS              dq 0
-RTS             dq 0
-STK             dq 0
-FB              dq 0
-FBS             dq 0
+dmagic		dq 0x1122334455667788 ;0
+Handle          dq 0     ;8
+SystemTable     dq 0     ;16
+Interface       dq 0     ;24
+BS              dq 0     ;32
+RTS             dq 0     ;40
+STK             dq 0     ;48
+FB              dq 0     ;56
+FBS             dq 0     ;64
 HR		dq 0
 VR		dq 0
 PPS		dq 0
